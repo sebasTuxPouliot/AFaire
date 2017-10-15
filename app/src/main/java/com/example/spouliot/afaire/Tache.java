@@ -10,7 +10,7 @@ public class Tache {
     int idTache;
     String titreTache;
     int typeDeTache; // une couleur définie dans le fichier colors.xml
-
+    //Color typeDeTache;
 
     public Tache(int idTache, String titreTache, int typeDeTache){
         this.idTache = idTache;
