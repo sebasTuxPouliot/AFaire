@@ -37,5 +37,9 @@ public class MainActivity extends AppCompatActivity {
 
         ListView lvAFaire = (ListView) findViewById(R.id.lv_a_faire);
         lvAFaire.setAdapter(adapter2);
+
+        DatabaseHandler databaseHandler = new DatabaseHandler(this);
+        databaseHandler.ajouterTache();
+        databaseHandler.getTaches();
     }
 }
