@@ -12,6 +12,9 @@ public class Tache {
     int typeDeTache; // une couleur définie dans le fichier colors.xml
     //Color typeDeTache;
 
+
+    public Tache(){};
+
     public Tache(int idTache, String titreTache, int typeDeTache){
         this.idTache = idTache;
         this.titreTache = titreTache;

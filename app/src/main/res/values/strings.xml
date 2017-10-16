@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AFaire</string>
+    <string name="title_activity_ajout_afaire">AjoutAFaire</string>
 </resources>
