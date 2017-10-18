@@ -37,8 +37,8 @@ public class TacheAdapteur extends ArrayAdapter<Tache> {
         TextView mTitreTache = (TextView) v.findViewById(R.id.tv_tache);
         View mCouleurTache = (View) v.findViewById(R.id.v_couleur_tache);
 
-        mTitreTache.setText(listeDeTaches.get(position).titreTache);
-        mCouleurTache.setBackgroundColor(listeDeTaches.get(position).typeDeTache);
+        mTitreTache.setText(listeDeTaches.get(position).getTitreTache());
+        mCouleurTache.setBackgroundColor(listeDeTaches.get(position).getTypeDeTache());
         return v;
     }
 }

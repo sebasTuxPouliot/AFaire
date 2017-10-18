@@ -1,19 +1,12 @@
 package com.example.spouliot.afaire;
 
 import android.graphics.Color;
-import android.graphics.LinearGradient;
-import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class AjoutAFaire extends AppCompatActivity {
     Tache nouvelleTache = new Tache();
@@ -28,9 +21,11 @@ public class AjoutAFaire extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText etNouvelleTache = (EditText) findViewById(R.id.et_titre_tache);
-                nouvelleTache.titreTache = etNouvelleTache.getText().toString();
-                Log.d("titre de tache : ", nouvelleTache.titreTache.toString());
-                Log.d("couleur tache : ", nouvelleTache.typeDeTache + "");
+                nouvelleTache.setTitreTache(etNouvelleTache.getText().toString());
+
+                DatabaseHandler db = new DatabaseHandler(AjoutAFaire.this);
+                db.ajouterTache(nouvelleTache);
+
                 finish();
             }
         });
@@ -40,24 +35,26 @@ public class AjoutAFaire extends AppCompatActivity {
         View vCouleurVert = (View) findViewById(R.id.v_couleur_vert);
 
         vCouleurBleu.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View v) {
-                nouvelleTache.typeDeTache = Color.BLUE;
+                nouvelleTache.setTypeDeTache(Color.BLUE);
+                Toast.makeText(AjoutAFaire.this, "Cette tâche sera codée bleu", Toast.LENGTH_SHORT).show();
             }
         });
 
         vCouleurRouge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nouvelleTache.typeDeTache = Color.RED;
+                nouvelleTache.setTypeDeTache(Color.RED);
+                Toast.makeText(AjoutAFaire.this, "Cette tâche sera codée en rouge", Toast.LENGTH_SHORT).show();
             }
         });
 
         vCouleurVert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nouvelleTache.typeDeTache = Color.GREEN;
+                nouvelleTache.setTypeDeTache(Color.GREEN);
+                Toast.makeText(AjoutAFaire.this, "Cette tâche sera codée en vert", Toast.LENGTH_SHORT).show();
             }
         });
     }

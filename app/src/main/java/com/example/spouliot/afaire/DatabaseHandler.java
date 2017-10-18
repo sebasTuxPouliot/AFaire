@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Color;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,6 +17,9 @@ import java.util.List;
 
 /**
  * Classe qui sert à créer la base et la table au besoin.
+ * Cette classe devrait rouler dans un autre thread en background pour respecter les normes de
+ * bonne conception. Cependant, le temps joue contre vous dans un examen.
+ * Veuillez vous en tenir à cette conception.
  */
 public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_REVISION = 1;
@@ -36,7 +40,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREER_TABLE_TACHES = "CREATE TABLE " + NOM_TABLE + "("
-                + CLE_ID + " INTEGER PRIMARY KEY," + CLE_TITRE + " TEXT,"
+                + CLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + CLE_TITRE + " TEXT,"
                 + CLE_TYPE + " INT" + ")";
         db.execSQL(CREER_TABLE_TACHES);
     }
@@ -47,9 +51,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     /*
-    Méthodes d'ajout et d'extraction
+    Méthodes d'ajout et d'extraction. En classes, c'est méthodes étaient dans DatabaseConnector
+    mais ce n'est pas une obligation.
      */
 
+    /*
+    Méthode pour vos besoins personnels mais non nécessaire pour le fonctionnement.
+     */
     public void ajouterTache(){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues uneTache = new ContentValues();
@@ -60,16 +68,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void ajouterTache(Tache tache){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues uneTache = new ContentValues();
+        uneTache.put(CLE_TITRE, tache.getTitreTache());
+        uneTache.put(CLE_TYPE, tache.getTypeDeTache());
+
+        db.insert(NOM_TABLE, null, uneTache);
+        db.close();
+    }
+
     public List<Tache> getTaches(){
+        List<Tache> liste = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
+
         Cursor c =  db.rawQuery("SELECT * FROM " + NOM_TABLE, null);
         c.moveToFirst();
         while(!c.isAfterLast()){
-            Log.d("contient : ", c.getString(2));
+            liste.add(new Tache(c.getInt(0), c.getString(1), c.getInt(2)));
             c.moveToNext();
         }
-        Log.d("fait : ", "pte vide");
+
         db.close();
-        return null;
+        return liste;
     }
 }

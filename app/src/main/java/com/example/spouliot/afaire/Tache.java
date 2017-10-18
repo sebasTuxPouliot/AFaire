@@ -7,10 +7,9 @@ import android.graphics.Color;
  */
 
 public class Tache {
-    int idTache;
-    String titreTache;
-    int typeDeTache; // une couleur définie dans le fichier colors.xml
-    //Color typeDeTache;
+    private int idTache;
+    private String titreTache;
+    private int typeDeTache; // une couleur provenant de Color.XXXX ou XXXX este une couleur
 
 
     public Tache(){};
@@ -19,6 +18,27 @@ public class Tache {
         this.idTache = idTache;
         this.titreTache = titreTache;
         this.typeDeTache = typeDeTache;
+    }
+
+    public void setTitreTache(String titreTache) {
+        this.titreTache = titreTache;
+    }
+
+    public void setTypeDeTache(int typeDeTache) {
+        this.typeDeTache = typeDeTache;
+    }
+
+    public int getIdTache() {
+
+        return idTache;
+    }
+
+    public String getTitreTache() {
+        return titreTache;
+    }
+
+    public int getTypeDeTache() {
+        return typeDeTache;
     }
 
     @Override
